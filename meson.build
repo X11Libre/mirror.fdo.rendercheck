@@ -1,0 +1,67 @@
+project('rendercheck', 'c')
+project_version = '1.5'
+cc = meson.get_compiler('c')
+
+if cc.has_header('err.h')
+    add_project_arguments('-DHAVE_ERR_H', language: 'c')
+endif
+
+add_project_arguments('-D_GNU_SOURCE', language: 'c')
+add_project_arguments('-DHAVE_VERSION_H', language: 'c')
+
+srcs = [
+    'main.c',
+    'ops.c',
+    'tests.c',
+    't_blend.c',
+    't_bug7366.c',
+    't_composite.c',
+    't_dstcoords.c',
+    't_fill.c',
+    't_gradient.c',
+    't_gtk_argb_xbgr.c',
+    't_libreoffice_xrgb.c',
+    't_repeat.c',
+    't_shmblend.c',
+    't_srccoords.c',
+    't_tsrccoords.c',
+    't_tsrccoords2.c',
+    't_triangles.c',
+]
+
+version_config = configuration_data()
+version_config.set_quoted('VERSION', project_version)
+
+configure_file(
+    output: 'version.h',
+    configuration: version_config,
+)
+
+executable(
+    'rendercheck',
+    srcs,
+    dependencies: [
+        dependency('xrender'),
+        dependency('xext'),
+        dependency('x11'),
+        dependency('xproto', version: '>= 7.0.17'),
+    ],
+    install: true,
+)
+
+man_xorgversion = '"rendercheck @0@" "X Version 11"'.format(project_version)
+
+custom_target(
+    'manpage',
+    input: 'man/rendercheck.man',
+    output: 'rendercheck.1',
+    command: [
+        'sed',
+        '-e',
+	's/__xorgversion__/@0@/'.format(man_xorgversion),
+	'@INPUT@'
+    ],
+    capture: true,
+    install: true,
+    install_dir: join_paths(get_option('mandir'), 'man1'),
+)
