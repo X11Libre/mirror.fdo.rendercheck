@@ -37,7 +37,7 @@ static inline void errx(int eval, const char *fmt, ...) {
     va_start(args, fmt);
     fprintf(stderr, "Fatal Error: ");
     fprintf(stderr, fmt, args);
-    fprintf(stderr, "\n", args);
+    fprintf(stderr, "\n");
     va_end(args);
     exit(eval);
 }
