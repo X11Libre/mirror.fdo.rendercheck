@@ -48,19 +48,12 @@ executable(
     install: true,
 )
 
-man_xorgversion = '"rendercheck @0@" "X Version 11"'.format(project_version)
-
-custom_target(
-    'manpage',
+man_config = configuration_data()
+man_config.set('version', project_version)
+rendercheck_man = configure_file(
     input: 'man/rendercheck.man',
     output: 'rendercheck.1',
-    command: [
-        'sed',
-        '-e',
-	's/__xorgversion__/@0@/'.format(man_xorgversion),
-	'@INPUT@'
-    ],
-    capture: true,
+    configuration: man_config,
     install: true,
     install_dir: join_paths(get_option('mandir'), 'man1'),
 )

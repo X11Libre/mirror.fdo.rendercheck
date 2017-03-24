@@ -1,5 +1,5 @@
 .ds q \N'34'
-.TH rendercheck 1 __xorgversion__
+.TH rendercheck 1 "rendercheck @version@" "X Version 11"
 .SH NAME
 rendercheck \- simple tests of the X Render extension.
 .SH SYNOPSIS
