@@ -10,3 +10,11 @@ Tests currently include:
 - Linear gradients
 - Repeating sources/masks at POT and non-POT sizes
 - Some regression tests for bugs from freedesktop.org bugzilla.
+
+rendercheck uses the Meson build system, which uses the "ninja" build
+backend on Linux.  The three commands to configure (building into the
+build/ directory), build, and install are:
+
+    meson build/
+    ninja -C build/
+    sudo ninja -C build/ install
