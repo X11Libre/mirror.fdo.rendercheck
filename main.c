@@ -26,9 +26,7 @@
 #include <string.h>
 #include <strings.h>
 #include <getopt.h>
-#ifdef HAVE_VERSION_H
 #include "version.h"
-#endif
 
 bool is_verbose = false, minimalrendering = false;
 int enabled_tests = ~0;		/* Enable all tests by default */
@@ -292,11 +290,7 @@ int main(int argc, char **argv)
 	/* Print the version string.  Bail out if --version was requested and
 	 * continue otherwise.
 	 */
-#ifdef HAVE_VERSION_H
 	printf("rendercheck %s\n", VERSION);
-#else
-	puts(PACKAGE_STRING);
-#endif
 	if (print_version)
 		return 0;
 

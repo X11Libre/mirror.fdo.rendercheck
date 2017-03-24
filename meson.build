@@ -7,7 +7,6 @@ if cc.has_header('err.h')
 endif
 
 add_project_arguments('-D_GNU_SOURCE', language: 'c')
-add_project_arguments('-DHAVE_VERSION_H', language: 'c')
 
 srcs = [
     'main.c',
