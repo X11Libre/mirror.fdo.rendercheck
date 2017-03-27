@@ -31,12 +31,14 @@
 #else
 # include <stdarg.h>
 # include <stdlib.h>
-static inline void errx(int eval, const char *fmt, ...) {
+__attribute__((format(printf, 2, 3)))
+static inline void errx(int eval, const char *fmt, ...)
+{
     va_list args;
 
     va_start(args, fmt);
     fprintf(stderr, "Fatal Error: ");
-    fprintf(stderr, fmt, args);
+    vfprintf(stderr, fmt, args);
     fprintf(stderr, "\n");
     va_end(args);
     exit(eval);
