@@ -47,9 +47,6 @@ get_x_shm_info(Display *dpy, size_t size)
 {
 	XShmSegmentInfo *shm_info = calloc(1, sizeof(*shm_info));
 
-	if (!XShmQueryExtension(dpy))
-		return NULL;
-
 	shm_info->shmid = shmget(IPC_PRIVATE, size, IPC_CREAT|0777);
 	if (shm_info->shmid < 0) {
 		free(shm_info);
@@ -225,7 +222,16 @@ static struct rendercheck_test_result
 test_shmblend(Display *dpy)
 {
 	struct rendercheck_test_result result = {};
-	int i;
+	int major, minor, i;
+	Bool pixmaps_supported;
+
+	if (!XShmQueryExtension(dpy) ||
+	    !XShmQueryVersion(dpy, &major, &minor, &pixmaps_supported) ||
+	    !pixmaps_supported) {
+		printf("SHM blend test: skipped\n");
+		record_result(&result, true);
+		return result;
+	}
 
 	for (i = 0; i < nformats; i++) {
 		struct render_format *format = &formats[i];
