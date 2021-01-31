@@ -105,9 +105,19 @@ struct rendercheck_test {
 	struct rendercheck_test_result (*func)(Display *dpy);
 };
 
-#define DECLARE_RENDERCHECK_TEST(name)		  \
+#ifdef __MACH__
+#define SECTION(X) section("__DATA,__" X )
+#define SECTION_START(X) __asm("section$start$__DATA$__" X)
+#define SECTION_END(X) __asm("section$end$__DATA$__" X)
+#else
+#define SECTION(X) section(X)
+#define SECTION_START(X)
+#define SECTION_END(X)
+#endif
+
+#define DECLARE_RENDERCHECK_TEST(name)             \
 	const struct rendercheck_test test_desc_##name \
-	__attribute__ ((section ("test_section")))
+	__attribute__ ((SECTION ("test_section")))
 
 #define DECLARE_RENDERCHECK_ARG_TEST(arg_name_, long_name_, func_)		\
 	DECLARE_RENDERCHECK_TEST(arg_name_) = {				\
@@ -117,6 +127,13 @@ struct rendercheck_test {
 		.func = func_,						\
 	}
 
+/* Storage that will point at the start and end of the ELF/MACH-O section for test
+ * structs.  These are automatically set up by the linker when placing things
+ * in their sections.
+ */
+extern struct rendercheck_test __start_test_section SECTION_START("test_section");
+extern struct rendercheck_test __stop_test_section SECTION_END("test_section");
+
 struct render_format {
 	XRenderPictFormat *format;
 	char *name;
@@ -124,12 +141,6 @@ struct render_format {
 
 extern struct render_format *formats;
 extern int nformats;
-
-/* Storage that will point at the start and end of the ELF section for test
- * structs.  These are automatically set up by the linker when placing things
- * in their sections.
- */
-extern struct rendercheck_test __start_test_section, __stop_test_section;
 
 extern int pixmap_move_iter;
 extern int win_width, win_height;
