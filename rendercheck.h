@@ -117,7 +117,7 @@ struct rendercheck_test {
 
 #define DECLARE_RENDERCHECK_TEST(name)             \
 	const struct rendercheck_test test_desc_##name \
-	__attribute__ ((SECTION ("test_section")))
+	__attribute__ ((used, SECTION ("test_section")))
 
 #define DECLARE_RENDERCHECK_ARG_TEST(arg_name_, long_name_, func_)		\
 	DECLARE_RENDERCHECK_TEST(arg_name_) = {				\
