@@ -115,8 +115,15 @@ struct rendercheck_test {
 #define SECTION_END(X)
 #endif
 
+#ifdef __clang__
+#define ATTRIBUTE_NO_ASAN __attribute__((no_sanitize("address")))
+#else
+#define ATTRIBUTE_NO_ASAN /**/
+#endif
+
 #define DECLARE_RENDERCHECK_TEST(name)             \
 	const struct rendercheck_test test_desc_##name \
+	ATTRIBUTE_NO_ASAN \
 	__attribute__ ((used, SECTION ("test_section")))
 
 #define DECLARE_RENDERCHECK_ARG_TEST(arg_name_, long_name_, func_)		\
