@@ -1,5 +1,8 @@
-project('rendercheck', 'c')
-project_version = '1.5'
+project(
+  'rendercheck',
+  'c',
+  version : '1.5',
+)
 cc = meson.get_compiler('c')
 
 if cc.has_header('err.h')
@@ -29,7 +32,7 @@ srcs = [
 ]
 
 version_config = configuration_data()
-version_config.set_quoted('VERSION', project_version)
+version_config.set_quoted('VERSION', meson.project_version())
 
 configure_file(
     output: 'version.h',
@@ -49,7 +52,7 @@ executable(
 )
 
 man_config = configuration_data()
-man_config.set('version', project_version)
+man_config.set('version', meson.project_version())
 rendercheck_man = configure_file(
     input: 'man/rendercheck.man',
     output: 'rendercheck.1',
