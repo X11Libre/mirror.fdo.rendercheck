@@ -1,7 +1,7 @@
 project(
   'rendercheck',
   'c',
-  version : '1.5',
+  version : '1.6',
   license : 'MIT AND GPL-2.0-or-later'
 )
 cc = meson.get_compiler('c')
