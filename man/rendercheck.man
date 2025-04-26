@@ -37,8 +37,9 @@ Test names include
 .BR \%mcoords ", " \%tscoords ", " \%tmcoords ", "
 .BR \%blend ", " \%composite ", " \%cacomposite ", "
 .BR \%gradients ", "\%repeat ", " \%triangles ", "
+.BR \%bug7366 ", "\%gtk_argb_xbgr ", " \%libreoffice_xrgb ", "
 and
-.BR \%bug7366 .
+.BR \%shmblend .
 Names must be separated by commas and have no spaces.
 .TP
 .BI \-f\fR|\fP\-\-formats " format1,format2,format3..."
