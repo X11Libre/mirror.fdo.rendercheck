@@ -1,5 +1,5 @@
 .ds q \N'34'
-.TH RENDERCHECK 1 2006-10-26 "rendercheck @version@" "X Version 11"
+.TH RENDERCHECK 1 2025-04-26 "rendercheck @version@" "X Version 11"
 .SH NAME
 rendercheck \- simple tests of the X Render extension.
 .SH SYNOPSIS
@@ -9,6 +9,8 @@ rendercheck \- simple tests of the X Render extension.
     [\fB\-t\fP|\fB\-\-tests\fP \fItest1\fP,\fItest2\fP,\fItest3\fP,...] \
 [\fB\-o\fP|\fB\-\-ops\fP \fIop1\fP,\fIop2\fP,\fIop3\fP,...]
     [\fB\-v|\fB\-\-verbose\fP] [\fB\-\-minimalrendering\fP]
+
+\fBrendercheck\fP [\fB\-\-help\fP|\fB\-\-version\fP]
 .fi
 .SH DESCRIPTION
 .B rendercheck
@@ -54,6 +56,12 @@ and successes and failures.
 .B \-\-minimalrendering
 Disables copying of offscreen destinations to the window,
 which is on by default to provide the user with visual feedback.
+.TP
+.B \-\-help
+Prints usage message and exits.
+.TP
+.B \-\-version
+Prints version information and exits.
 .SH BUGS
 Several limitations are documented in the TODO file accompanying the source.
 Please report any further bugs you find to

@@ -148,14 +148,14 @@ void print_tests(FILE *file, int tests) {
 
 _X_NORETURN
 static void
-usage (char *program)
+usage (const char *program, int exitcode)
 {
     fprintf(stderr, "usage: %s [-d|--display display] [-v|--verbose]\n"
 	"\t[-t test1,test2,...] [-o op1,op2,...] [-f format1,format2,...]\n"
-	"\t[--sync] [--minimalrendering] [--version]\n"
+	"\t[--sync] [--minimalrendering] [--help] [--version]\n"
 	"Available tests:\n", program);
     print_tests(stderr, ~0);
-    exit(1);
+    exit(exitcode);
 }
 
 int main(int argc, char **argv)
@@ -178,6 +178,7 @@ int main(int argc, char **argv)
 		{ "tests",	required_argument,	NULL,	't' },
 		{ "ops",	required_argument,	NULL,	'o' },
 		{ "verbose",	no_argument,		NULL,	'v' },
+		{ "help",	no_argument,		NULL,	'?' },
 		{ "sync",	no_argument,		&is_sync, true},
 		{ "minimalrendering", no_argument,
 		  &longopt_minimalrendering, true},
@@ -185,7 +186,7 @@ int main(int argc, char **argv)
 		{ NULL,		0,			NULL,	0 }
 	};
 
-	while ((o = getopt_long(argc, argv, "d:i:f:t:o:v", longopts, NULL)) != -1) {
+	while ((o = getopt_long(argc, argv, "d:i:f:t:o:v?", longopts, NULL)) != -1) {
 		switch (o) {
 		case 'd':
 			display = optarg;
@@ -207,7 +208,7 @@ int main(int argc, char **argv)
 					break;
 				}
 				if (i == num_ops)
-					usage(argv[0]);
+					usage(argv[0], EXIT_FAILURE);
 			}
 			break;
 		case 'f':
@@ -258,17 +259,20 @@ int main(int argc, char **argv)
 					}
 				}
 				if (!found)
-					usage(argv[0]);
+					usage(argv[0], EXIT_FAILURE);
 			}
 
 			break;
 		case 'v':
 			is_verbose = true;
 			break;
+                case '?':
+			usage(argv[0], EXIT_SUCCESS);
+			break;
 		case 0:
 			break;
 		default:
-			usage(argv[0]);
+			usage(argv[0], EXIT_FAILURE);
 			break;
 		}
 	}
