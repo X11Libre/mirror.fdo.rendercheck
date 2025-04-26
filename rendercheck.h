@@ -49,6 +49,30 @@ static inline void errx(int eval, const char *fmt, ...)
 #define max(a, b) (a > b ? a : b)
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
 
+#ifndef __has_builtin
+# define __has_builtin(x) 0     /* Compatibility with older compilers */
+#endif
+
+#if __has_builtin(__builtin_popcount)
+# define bit_count __builtin_popcount
+#else
+/*
+ * Count the number of bits set to 1 in a 32-bit word.
+ * Algorithm from MIT AI Lab Memo 239: "HAKMEM", ITEM 169.
+ * https://dspace.mit.edu/handle/1721.1/6086
+ */
+static inline int
+bit_count(int i)
+{
+	int count;
+
+	count = (i >> 1) & 033333333333;
+	count = i - count - ((count >> 1) & 033333333333);
+	count = (((count + (count >> 3)) & 030707070707) % 077);
+	return count;
+}
+#endif
+
 typedef struct _color4d
 {
 	double r, g, b, a;
@@ -164,9 +188,6 @@ extern int num_colors;
 /* main.c */
 void
 describe_format(char **desc, const char *prefix, XRenderPictFormat *format);
-
-int
-bit_count(int i);
 
 void
 print_tests(FILE *file, int tests);

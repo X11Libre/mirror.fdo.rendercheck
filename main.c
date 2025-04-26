@@ -42,18 +42,6 @@ int pixmap_move_iter = 1;
 int win_width = 40;
 int win_height = 200;
 
-int
-bit_count(int i)
-{
-	int count;
-
-	count = (i >> 1) & 033333333333;
-	count = i - count - ((count >> 1) & 033333333333);
-	count = (((count + (count >> 3)) & 030707070707) % 077);
-	/* HAKMEM 169 */
-	return count;
-}
-
 /* This is not complete, but decent enough for now.*/
 void
 describe_format(char **desc, const char *prefix, XRenderPictFormat *format)
