@@ -1,56 +1,64 @@
 .ds q \N'34'
-.TH rendercheck 1 "rendercheck @version@" "X Version 11"
+.TH RENDERCHECK 1 2006-10-26 "rendercheck @version@" "X Version 11"
 .SH NAME
 rendercheck \- simple tests of the X Render extension.
 .SH SYNOPSIS
 .nf
-.B rendercheck [\-d|\-\-display display] [\-i|\-\-iter] [\-\-sync] \
-[\-t|\-\-tests test1,test2,test3,...] [\-o|\-\-ops op1,op2,op3,...]
-[\-v|\-\-verbose] [\-\-minimalrendering]
+\fBrendercheck\fP [\fB\-d\fP|\fB\-\-display\fP \fIdisplay\fP] \
+[\fB\-i\fP|\fB\-\-iter\fP] [\fB\-\-sync\fP]
+    [\fB\-t\fP|\fB\-\-tests\fP \fItest1\fP,\fItest2\fP,\fItest3\fP,...] \
+[\fB\-o\fP|\fB\-\-ops\fP \fIop1\fP,\fIop2\fP,\fIop3\fP,...]
+    [\fB\-v|\fB\-\-verbose\fP] [\fB\-\-minimalrendering\fP]
 .fi
 .SH DESCRIPTION
 .B rendercheck
-is a set of simple tests of the X Render extension.  It is designed for authors
-of Render implementations in X Servers.
+is a set of simple tests of the X Render extension.
+It is designed for authors of Render implementations in X Servers.
 .SH OPTIONS
 .TP
-.BI \-d|\-\-display\ display
+.BI \-d\fR|\fP\-\-display " display"
 Specifies the display to test against.
 .TP
-.BI \-i|\-\-iter\ iterations
+.BI \-i\fR|\fP\-\-iter " iterations"
 Specifies the number of times to repeat each operation before sampling results.
 Some X Servers may behave differently (hardware vs software rendering paths)
-depending on the previous operations done, so this may be used to influence the
-server's choices.
+depending on the previous operations done,
+so this may be used to influence the server's choices.
 .TP
-.BI \-\-sync
+.B \-\-sync
 Enables synchronous xlib operation, for debugging.
 .TP
-.BI \-t|\-\-tests\ test1,test2,test3...
-Enables only a specific subset of the possible tests.  Test names include 
-fill, dcoords, scoords, mcoords, tscoords, tmcoords, blend, composite,
-cacomposite, gradients, repeat, triangles, and bug7366.
-Names must be separated by
-commas and have no spaces.
+.BI \-t\fR|\fP\-\-tests " test1,test2,test3..."
+Enables only a specific subset of the possible tests.
+Test names include
+.BR \%fill ", " \%dcoords ", " \%scoords ", "
+.BR \%mcoords ", " \%tscoords ", " \%tmcoords ", "
+.BR \%blend ", " \%composite ", " \%cacomposite ", "
+.BR \%gradients ", "\%repeat ", " \%triangles ", "
+and
+.BR \%bug7366 .
+Names must be separated by commas and have no spaces.
 .TP
-.BI \-f|\-\-formats\ format1,format2,format3...
-Enables only a specific subset of the possible formats.  Only formats listed
-in the server-supported format list are available.  Names must be separated by
-commas and have no spaces.
+.BI \-f\fR|\fP\-\-formats " format1,format2,format3..."
+Enables only a specific subset of the possible formats.
+Only formats listed in the server-supported format list are available.
+Names must be separated by commas and have no spaces.
 .TP
-.BI \-o|\-\-ops
+.BR \-o | \-\-ops
 Enables only a specific subset of the Render operators.
 .TP
-.BI \-v|\-\-verbose
-Enables verbose printing of information on tests run, and successes and
-failures.
+.BR \-v | \-\-verbose
+Enables verbose printing of information on tests run,
+and successes and failures.
 .TP
-.BI \-\-minimalrendering
-Disables copying of offscreen destinations to the window, which is on by default
-to provide the user with visual feedback.
+.B \-\-minimalrendering
+Disables copying of offscreen destinations to the window,
+which is on by default to provide the user with visual feedback.
 .SH BUGS
 Several limitations are documented in the TODO file accompanying the source.
 Please report any further bugs you find to
-https://gitlab.freedesktop.org/xorg/test/rendercheck/-/issues/.
+.UR https://gitlab.freedesktop.org/xorg/test/rendercheck/-/issues/
+the rendercheck issue tracker
+.UE .
 .SH AUTHORS
 Eric Anholt, with help from Keith Packard.
