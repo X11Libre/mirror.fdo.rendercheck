@@ -56,7 +56,7 @@ static picture_info *create_target_picture(Display *dpy)
 		argb_fill(dpy, p, x, y, 1, 1, c->a, c->r, c->g, c->b);
 	}
 
-	return p;	
+	return p;
 }
 
 static void destroy_target_picture(Display *dpy, picture_info *p)

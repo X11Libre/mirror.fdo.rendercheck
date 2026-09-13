@@ -127,7 +127,7 @@ print_test_separator(int i)
 
 void print_tests(FILE *file, int tests) {
     int i, j;
-    
+
     for (i=0, j=0; available_tests[i].name; i++) {
         if (!(available_tests[i].flag & tests))
             continue;

@@ -646,14 +646,14 @@ do {								\
 
                 for (j = 0; j <= num_dests; j++) {
                     picture_info *pi;
-                    
+
                     if (j != num_dests)
                         pi = &dests[j];
                     else
                         pi = win;
                     printf("Beginning %s linear gradient test on %s\n",
                            ops[i].name, pi->name);
-                    
+
                     for (src = 0; src < num_tests; src++) {
 			ok = linear_gradient_test(dpy, win, pi, i,
 						  &pictures_1x1[src]);
@@ -674,7 +674,7 @@ do {								\
 
                 for (j = 0; j <= num_dests; j++) {
                     picture_info *pi;
-                    
+
                     if (j != num_dests)
                         pi = &dests[j];
                     else
